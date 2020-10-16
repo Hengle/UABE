@@ -139,3 +139,134 @@ Additions in 2.0 :
 - Fixed creating dumps of some assets, such as TerrainData
 - Added support for split .resource / .resS files
 - Fixed some cases where AudioClip/Texture2D can't export from .resource/.resS
+
+Addition in 2.0b :
+- Use the type package even for asset bundle file tables, seemingly the type information isn't always stored.
+
+Additions in 2.1 :
+- Add Unity 5.5 (format 16/17) .assets file support.
+- Add Unity 5.5.0f3 type database.
+- Fix hidden assets added with File->Add when closing the asset list and pressing Info again (for bundles) or when loading an installer package.
+- Add a dependency view dialog (View->Dependencies) that lists all listed .assets files with their absolute File IDs and their direct dependencies with relative File IDs.
+- Improve support for split .assets files, .split0 files can now be opened directly.
+- Add support for BC4,BC5,BC6H and BC7 texture formats (added in U5.5) with different compression settings and decompression.
+- Add file name suggestions for asset export options.
+- Fix writing some format 6 AssetBundles with UnityWeb header and flag 0x100 set.
+- Add a SubstanceArchive plugin that can export .sbsasm files but not the .xml file.
+- Calculate type hashes and fill out type tree when adding new asset types to format 16/17 files.
+- Small TextAsset plugin fixes.
+- Fix a possible crash when resolving a conflict caused by an installer package import in the installer maker.
+- API: Remove two console outputs in MakeTextureData and GetTextureData.
+- Fix exporting dumps of MonoBehaviours with no type tree stored in the .assets file.
+- Fix some potential issues when trying to locate streamed resources.
+
+Addition in 2.1b :
+- Fix a bug in writing the type information of Unity 5.5 .assets files.
+
+Addition in 2.1c :
+- Fix another bug in reading and writing the type information of Unity 5.5 .assets files.
+
+Additions in 2.1d :
+- Fix another bug in writing the type information of Unity 5.5 .assets files.
+- Fix a bug causing the last character of strings in asset dumps before \n or \r to be cut off.
+- Fixed the suggested file path name for the XP dialog fallback.
+- Improved performance of batch dump export.
+- Fix a bug causing ResourceManager names to be applied to File ID 0's assets if the .assets files that contain the targeted assets aren't loaded.
+
+Additions in 2.2 beta1 :
+- Add batch import support for raw assets, dumps, Texture2D, TextAsset, TerrainData and MovieTexture.
+- Add an option to retrieve MonoBehaviour type information from assemblies to create full dumps.
+- Add UABE JSON dump export/import and Unity JsonUtility compatible export.
+- Update plugins for 2017.1.* and 2017.2.*.- Add type databases for 2017.1.0f3 and 2017.2.0f3.
+- Add a new dialog View->Containers.
+- Add a new column "Container" to the asset list to show assets grouped together properly. Base container assets can be searched for.
+- Add progress indicators for opening .assets files and batch export/import.
+- Improve performance massively for very large .assets files (opening files, selecting assets, removing assets, adding assets, plugin options).
+- Support RGB9e5Float HDR, RG16 and R8 texture formats (will still be converted from/to normal SDR RGBA32).
+- Add big endian write support (experimental).
+- Redo AssetsFileReader / AssetsFileWriter interfaces and add experimental support for more than 2045 files.
+- Improve streamed data file lookup.- Add mip map support to the Texture2D plugin.
+- Add compressed mesh support (experimental).
+- Add bundle compression support (LZMA only, experimental).
+- Add multithread DXT1/5 compression support.
+- Use type information to add valid assets with zeroed fields instead of empty ones.
+- Allow entering a type name instead of a type id for the Add Asset dialog.
+- Fix a bug writing .assets files that caused a missing field which in some cases caused further trouble.
+- Improve bundle decompression for LZ4 files by creating a streamed decompression interface.
+- Make AssetTypeInstance more strict on invalid assets or outdated type information (prevent out of memory crashes when trying to view or export dumps of some assets).
+- Rework the plugin interface.
+- Fix a bug importing .txt dumps with long lines.
+- Update the Texture2D edit dialog to and fix a couple of options to represent the asset format properly.
+- Change the default asset list window size.
+- Change the default name format for exports to allow UABE to find the files for batch import.
+- Make the plugin option list double-clickable.
+- Support longer engine version strings.
+- Hide removed assets from unsaved bundles.
+- Use comctrl32 6.0 for the progress indicators, which also changes the look of dialog controls.
+- Fix a couple of small memory leaks.
+- Fix a bug allowing UABE to close before saving bundles.
+
+Additions in 2.2 beta2 :
+- Add 2017.3.0f3 support (new class database, updated Texture and Mesh plugins).
+- Fix a memory issue for .txt dumps with many lines larger than 255 bytes.
+- Rework the dependency resolver to support external .assets or streamed data file references from inside a bundle.
+- Fix a crash when trying to compress some texture file formats with mip map support.
+- Fix mip maps of crunched textures.
+- Fix the container name to asset assignment with ResourceManager file tables that have names for multiple File IDs.
+- Fix a crash when an invalid File ID is entered in the Add dialog.
+
+Additions in 2.2 beta3 :
+- Add export support for rigged uncompressed meshes to Collada (.dae).
+- Add a type database for 2018.1.1f1.
+- Add support for DXT and ETC crunch formats (2017.3 and newer).
+- Fix issues importing .txt and .json dumps, and enforce exact float and double representations.
+- Fix exporting compressed meshes to .obj.
+- Fix issues when reading split files.
+- Only show texture formats supported by the file's Unity version.
+- Mod Installers : Automatically remove AssetsTools.dll, and (hopefully) fix the racing condition that caused the .exe to stay open sometimes.
+- Allow the MonoBehaviour type tree stealer to fail for some classes if others succeed.
+- Leave bundled .resource files uncompressed (File->Compress) to fix sound issues (untested!)
+- Add an export button for the View->Dependencies dialog.
+
+Additions in 2.2 beta4 :
+- Add Unity 2017.4 and 2018.2 support.
+- Add LZ4 compression support (experimental), and add a compression dialog for per-file settings.
+- Mesh plugin : Correct the orientation of bind poses and skeleton node transformations.
+
+Additions in 2.2 stable :
+- Add a new 'Add' option for MonoBehaviours.
+- Bundle replacer type information and hashes inside installer packages.
+- Add support for 2018.3; streamed mesh export is not tested.
+- Add a new console command 'applyemip' to apply installer packages.
+- Fix the file order in written bundles to stay the same.
+- Fix the serialized flag for bundles so it is not set on .resS files.
+- Write assets listed in the preload table before others.
+- Fix reading Mesh assets.
+- Fix the window focus after progress dialogs.
+- Improve the errors logged to progress dialogs and make them stay open if an error occured.
+- Improve the MonoBehaviour type retrieve tool for array and List fields.
+- Look for newly added MonoScripts when retrieving MonoBehaviour script info.
+- Fix writing bundles with an installer package loaded.
+- Fix writing multiple .assets files with an installer package loaded.
+- Fix a crash that may occur when adding a new asset in a bundle and reopening the 'Asset info' dialog.
+- Fix a crash when using assets that were added, removed and added again.
+- Fix locating script assemblies in 2018.2 and 3. Also added m_AssemblyName in MonoScript manually to 2018.2 and 3 type databases, since it was missing.
+- Allow setting the field version in the type database editor.
+- Fix removing version targets in the type database editor.
+- Fix version names in classdata.tpk.
+- Fix the file name extension for exported .obj meshes.
+- Improve classdata.tpk compression.
+
+Additions in 2.2 stable b :
+- Fix Mesh export (again).
+- Fix mip map generation for RGBA32 textures.
+
+Additions in 2.2 stable c :
+- Add class databases for 2018.4.5f1 and 2019.1.0f3
+- Support the slightly changed Unity 2019 .assets file format.
+- The mod installer now uses a statically linked AssetsTools.dll to reduce file size and hopefully reduce the amount of false-positives.
+
+Additions in 2.2 stable d :
+- Add a class database for 2019.2.0f1.
+- Support the updated Unity 2019.2 .assets file format.
+- Make the mod installer close properly after a file dialog was opened.
